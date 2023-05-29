@@ -13,4 +13,10 @@ public interface CategoryApplication {
 
     List<Category> getCategories();
 
+
+    void addBudget(UUID categoryId, Budget budget);
+
+    void removeBudget(UUID categoryID);
+
+
 }

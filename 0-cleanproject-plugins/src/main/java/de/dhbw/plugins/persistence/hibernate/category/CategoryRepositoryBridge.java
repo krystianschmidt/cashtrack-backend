@@ -1,5 +1,6 @@
 package de.dhbw.plugins.persistence.hibernate.category;
 
+import de.dhbw.cleanproject.domain.category.Budget;
 import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.category.CategoryRepository;
 import de.dhbw.cleanproject.domain.user.User;
@@ -19,7 +20,7 @@ public class CategoryRepositoryBridge implements CategoryRepository {
 
 
     @Override
-    public void addCategory(Category category) {
+    public void saveCategory(Category category) {
         repository.save(category);
     }
 
@@ -32,5 +33,11 @@ public class CategoryRepositoryBridge implements CategoryRepository {
     public void updateCategory(Category category) {
 
     }
+
+    @Override
+    public Category getCategory(UUID categoryId) {
+        return repository.findById(categoryId).orElseThrow(() -> new IllegalArgumentException("Category not found"));
+    }
+
 
 }
