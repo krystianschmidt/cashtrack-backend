@@ -32,8 +32,7 @@ public class AuthenticationController {
 
     @GetMapping("/iAm")
     public ResponseEntity<?> getUser(){
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserResource user = userToUserResourceMapper.apply(principal);
+        UserResource user = userToUserResourceMapper.apply(userApplication.getUser());
 
         return ResponseEntity.ok(user);
     }

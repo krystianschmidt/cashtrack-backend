@@ -5,12 +5,15 @@ import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.category.CategoryApplication;
 import de.dhbw.cleanproject.domain.category.CategoryRepository;
 import de.dhbw.cleanproject.domain.transaction.Transaction;
+import de.dhbw.cleanproject.domain.transaction.TransactionType;
 import de.dhbw.cleanproject.domain.user.User;
 import de.dhbw.cleanproject.domain.user.UserApplication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -60,7 +63,11 @@ public class CategoryApplicationService implements CategoryApplication {
 
         Category category = optionalCategory.get();
         category.setBudget(budget);
+
+        refreshBudget(category);
         categoryRepository.saveCategory(category);
+
+        userApplication.generateReport(YearMonth.from(LocalDate.now()));
     }
 
     @Override
@@ -72,8 +79,38 @@ public class CategoryApplicationService implements CategoryApplication {
 
         Category category = optionalCategory.get();
         category.setBudget(null);
+
         categoryRepository.saveCategory(category);
     }
+
+    @Override
+    public void refreshBudget(Category category) {
+        category = getCategory(category.getId());
+
+        if(category.getTransactions().isEmpty() || category.getBudget() == null)
+            return;
+
+        Double totalExpense = category.getTransactions().stream()
+                .filter(t -> t.getType() == TransactionType.EXPENSE)
+                .mapToDouble(transaction -> Math.abs(transaction.getAmount()))
+                .sum();
+
+        // Assume the amount field in Budget is the maximum budget, and usedAmount is the amount currently used.
+        Budget updatedBudget = new Budget(
+                category.getBudget().getAmount(),
+                totalExpense,
+                totalExpense > category.getBudget().getAmount()
+        );
+
+        category.setBudget(updatedBudget);
+        categoryRepository.saveCategory(category);
+    }
+
+
+    public Category getCategory(UUID id){
+        return categoryRepository.getCategory(id);
+    }
+
 
 
 }

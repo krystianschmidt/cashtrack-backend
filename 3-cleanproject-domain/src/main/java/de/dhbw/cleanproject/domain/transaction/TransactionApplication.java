@@ -1,5 +1,6 @@
 package de.dhbw.cleanproject.domain.transaction;
 
+import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -12,5 +13,5 @@ public interface TransactionApplication {
 
     void updateTransaction(Transaction transaction);
 
-    List<Transaction> getAllTransactions(Integer month, Integer year);
+    List<Transaction> getAllTransactions(YearMonth yearMonth);
 }

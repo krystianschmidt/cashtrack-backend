@@ -22,8 +22,8 @@ public class TransactionRepositoryBridge implements TransactionRepository {
 
 
     @Override
-    public void addTransaction(Transaction transaction) {
-        repository.save(transaction);
+    public Transaction addTransaction(Transaction transaction) {
+        return repository.save(transaction);
     }
 
     @Override
@@ -37,9 +37,8 @@ public class TransactionRepositoryBridge implements TransactionRepository {
     }
 
     @Override
-    public List<Transaction> getAllTransactions(Integer month, Integer year) {
+    public List<Transaction> getAllTransactions(YearMonth yearMonth) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        YearMonth yearMonth = YearMonth.of(year, month);
         LocalDateTime start = yearMonth.atDay(1).atStartOfDay();
         LocalDateTime end = yearMonth.atEndOfMonth().atTime(23, 59, 59);
         return repository.findByUserAndTimestampBetween(user, start, end);

@@ -18,5 +18,8 @@ public interface CategoryApplication {
 
     void removeBudget(UUID categoryID);
 
+    void refreshBudget(Category category);
 
+
+    Category getCategory(UUID id);
 }

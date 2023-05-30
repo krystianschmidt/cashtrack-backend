@@ -1,9 +1,15 @@
 package de.dhbw.cleanproject.application.user;
 
 import de.dhbw.cleanproject.domain.category.Category;
+import de.dhbw.cleanproject.domain.transaction.Transaction;
+import de.dhbw.cleanproject.domain.transaction.TransactionApplication;
+import de.dhbw.cleanproject.domain.transaction.TransactionRepository;
+import de.dhbw.cleanproject.domain.transaction.TransactionType;
 import de.dhbw.cleanproject.domain.user.User;
 import de.dhbw.cleanproject.domain.user.UserApplication;
 import de.dhbw.cleanproject.domain.user.UserRepository;
+import de.dhbw.cleanproject.domain.user.report.BiggestCategory;
+import de.dhbw.cleanproject.domain.user.report.Report;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +17,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.time.YearMonth;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -21,6 +32,8 @@ public class UserApplicationService implements UserApplication {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final TransactionRepository transactionRepository;
 
 
 
@@ -55,6 +68,15 @@ public class UserApplicationService implements UserApplication {
         User user = getUser();
         user.addCategory(category);
         userRepository.save(user);
+    }
+
+    @Override
+    public void generateReport(YearMonth yearMonth) {
+        List<Transaction> allTransactions = transactionRepository.getAllTransactions(yearMonth);
+        User user = getUser();
+        user.generateReport(allTransactions, yearMonth);
+
+        save(user);
     }
 
     @Override

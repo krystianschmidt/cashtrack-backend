@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.time.YearMonth;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class TransactionController {
     @GetMapping
     ResponseEntity<?> getAllTransactions(@RequestParam Integer month, @RequestParam Integer year){
         return ResponseEntity.ok(
-                transactionApplication.getAllTransactions(month, year).stream()
+                transactionApplication.getAllTransactions(YearMonth.of(year, month)).stream()
                         .map(transactionToTransactionResourceMapper)
                         .collect(Collectors.toList())
         );

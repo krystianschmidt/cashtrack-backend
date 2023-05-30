@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -36,7 +37,7 @@ public class Transaction {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
 
@@ -45,7 +46,7 @@ public class Transaction {
         if(amount == 0)
             this.type = TransactionType.FREE;
         else
-            this.type = amount > 0 ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
+            this.type = amount > 0 ? TransactionType.INCOME : TransactionType.EXPENSE;
     }
 
     public static class TransactionBuilder{
@@ -54,8 +55,23 @@ public class Transaction {
             if(amount == 0)
                 type = TransactionType.FREE;
             else
-                type = amount > 0 ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
+                type = amount > 0 ? TransactionType.INCOME : TransactionType.EXPENSE;
             return this;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction transaction = (Transaction) o;
+        // add all fields which identify a category
+        return Objects.equals(id, transaction.id);
+    }
+
+    @Override
+    public int hashCode() {
+        // add all fields which identify a category
+        return Objects.hash(id);
     }
 }
