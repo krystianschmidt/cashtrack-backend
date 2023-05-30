@@ -15,6 +15,7 @@ import java.time.YearMonth;
 import java.util.*;
 import java.util.logging.Logger;
 
+import static de.dhbw.cleanproject.domain.user.report.ReportGenerator.findCategoriesOverBudget;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -153,8 +154,24 @@ class UserTest {
         user.setCategories(new ArrayList<>(Arrays.asList(category1, category2)));
         LOGGER.info("Categories: " + user.getCategories());
 
+        Transaction transaction1 = Transaction.builder()
+                .id(UUID.randomUUID())
+                .amount(150.0)
+                .category(category1)
+                .type(TransactionType.EXPENSE)
+                .build();
+
+        Transaction transaction2 = Transaction.builder()
+                .id(UUID.randomUUID())
+                .amount(150.0)
+                .category(category2)
+                .type(TransactionType.EXPENSE)
+                .build();
+
+        List<Transaction> transactions = Arrays.asList(transaction1, transaction2);
+
         // Call method under test
-        List<Category> categoriesOverBudget = user.findCategoriesOverBudget(new ArrayList<>());
+        List<Category> categoriesOverBudget = findCategoriesOverBudget(transactions);
         LOGGER.info("Categories over budget: " + categoriesOverBudget);
 
         // Assert results

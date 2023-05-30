@@ -16,6 +16,9 @@ public class BiggestCategoryToBiggestResourceMapper implements Function<BiggestC
 
     @Override
     public BiggestCategoryResource apply(BiggestCategory biggestCategory) {
+        if (biggestCategory == null || biggestCategory.getCategory() == null) {
+            return null;
+        }
         return BiggestCategoryResource.builder()
                 .category(categoryToCategoryResourceMapper.apply(biggestCategory.getCategory()))
                 .amount(biggestCategory.getAmount())

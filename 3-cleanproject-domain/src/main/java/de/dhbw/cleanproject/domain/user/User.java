@@ -6,6 +6,7 @@ import de.dhbw.cleanproject.domain.transaction.TransactionApplication;
 import de.dhbw.cleanproject.domain.transaction.TransactionType;
 import de.dhbw.cleanproject.domain.user.report.BiggestCategory;
 import de.dhbw.cleanproject.domain.user.report.Report;
+import de.dhbw.cleanproject.domain.user.report.ReportGenerator;
 import lombok.*;
 import lombok.experimental.PackagePrivate;
 import org.hibernate.annotations.GenericGenerator;
@@ -91,59 +92,11 @@ public class User implements UserDetails {
     }
 
     public void generateReport(List<Transaction> allTransactions, YearMonth yearMonth) {
-        Double totalIncome = 0.;
-        Double totalExpense = 0.;
-        for (Transaction transaction : allTransactions) {
-            if(transaction.getType().equals(TransactionType.INCOME)){
-                totalIncome += transaction.getAmount();
-            }else{
-                totalExpense += Math.abs(transaction.getAmount());
-            }
-        }
 
-        BiggestCategory biggestExpenseCategory = findBiggestCategory(allTransactions, TransactionType.EXPENSE);
-
-        BiggestCategory biggestIncomeCategory = findBiggestCategory(allTransactions, TransactionType.INCOME);
-
-        List<Category> categoriesOverBudget = findCategoriesOverBudget(allTransactions);
-
-        Report report = Report.builder()
-                .yearMonth(yearMonth)
-                .totalExpense(totalExpense)
-                .totalIncome(totalIncome)
-                .biggestExpenseCategory(biggestExpenseCategory)
-                .biggestIncomeCategory(biggestIncomeCategory)
-                .categoriesOverBudget(categoriesOverBudget)
-                .build();
+        Report report = ReportGenerator.generateReport(allTransactions, yearMonth);
 
         reports.remove(report);
         reports.add(report);
-    }
-
-    public List<Category> findCategoriesOverBudget(List<Transaction> transactions) {
-        return categories.stream()
-                .filter(category -> category.getBudget() != null)
-                .filter(category -> category.getBudget().getIsExceeded())
-                .collect(Collectors.toList());
-    }
-
-
-    private BiggestCategory findBiggestCategory(List<Transaction> transactions, TransactionType type) {
-        return transactions.stream()
-                .filter(transaction -> transaction.getType() == type)
-                .collect(Collectors.groupingBy(
-                        Transaction::getCategory,
-                        Collectors.summingDouble(transaction -> Math.abs(transaction.getAmount())))
-                )
-                .entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue())
-                .map(entry -> BiggestCategory.builder()
-                        .category(entry.getKey())
-                        .amount(entry.getValue())
-                        .type(type)
-                        .build())
-                .orElse(null);
     }
 
     @Override
