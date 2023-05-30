@@ -70,4 +70,15 @@ public class Category {
         transaction.setCategory(this);
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                ", iconName='" + iconName + '\'' +
+                ", transactions=" + transactions +
+                ", budget=" + budget +
+                '}';
+    }
 }

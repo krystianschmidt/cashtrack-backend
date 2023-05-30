@@ -24,4 +24,14 @@ public class BiggestCategory {
     private Double amount;
 
     private TransactionType type;
+
+    @Override
+    public String toString() {
+        return "BiggestCategory{" +
+                "id=" + id +
+                ", category=" + category +
+                ", amount=" + amount +
+                ", type=" + type +
+                '}';
+    }
 }

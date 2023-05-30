@@ -13,4 +13,13 @@ import javax.persistence.Embeddable;
 public final class Budget {
     private final Double amount, usedAmount;
     private final Boolean isExceeded;
+
+    @Override
+    public String toString() {
+        return "Budget{" +
+                "amount=" + amount +
+                ", usedAmount=" + usedAmount +
+                ", isExceeded=" + isExceeded +
+                '}';
+    }
 }

@@ -74,4 +74,17 @@ public class Transaction {
         // add all fields which identify a category
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", timestamp=" + timestamp +
+                ", type=" + type +
+                ", description='" + description + '\'' +
+                ", user=" + user +
+                ", category=" + category +
+                '}';
+    }
 }

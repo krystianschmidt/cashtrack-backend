@@ -56,4 +56,17 @@ public class Report {
         // add all fields which identify a category
         return Objects.hash(yearMonth);
     }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", yearMonth=" + yearMonth +
+                ", totalIncome=" + totalIncome +
+                ", totalExpense=" + totalExpense +
+                ", biggestExpenseCategory=" + biggestExpenseCategory +
+                ", biggestIncomeCategory=" + biggestIncomeCategory +
+                ", categoriesOverBudget=" + categoriesOverBudget +
+                '}';
+    }
 }

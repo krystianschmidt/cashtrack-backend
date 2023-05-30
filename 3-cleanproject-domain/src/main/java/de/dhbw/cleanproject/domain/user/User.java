@@ -120,7 +120,7 @@ public class User implements UserDetails {
         reports.add(report);
     }
 
-    private List<Category> findCategoriesOverBudget(List<Transaction> transactions) {
+    public List<Category> findCategoriesOverBudget(List<Transaction> transactions) {
         return categories.stream()
                 .filter(category -> category.getBudget() != null)
                 .filter(category -> category.getBudget().getIsExceeded())
@@ -146,5 +146,16 @@ public class User implements UserDetails {
                 .orElse(null);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", categories=" + categories +
+                ", reports=" + reports +
+                '}';
+    }
 }
 
