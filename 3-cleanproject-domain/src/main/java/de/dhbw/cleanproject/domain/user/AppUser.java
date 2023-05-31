@@ -2,13 +2,9 @@ package de.dhbw.cleanproject.domain.user;
 
 import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.transaction.Transaction;
-import de.dhbw.cleanproject.domain.transaction.TransactionApplication;
-import de.dhbw.cleanproject.domain.transaction.TransactionType;
-import de.dhbw.cleanproject.domain.user.report.BiggestCategory;
 import de.dhbw.cleanproject.domain.user.report.Report;
 import de.dhbw.cleanproject.domain.user.report.ReportGenerator;
 import lombok.*;
-import lombok.experimental.PackagePrivate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +20,7 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Builder
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
 
     @Id
     @Type(type="uuid-char")
@@ -101,7 +96,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "AppUser{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

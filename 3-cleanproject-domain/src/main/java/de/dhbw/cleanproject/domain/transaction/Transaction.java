@@ -1,7 +1,7 @@
 package de.dhbw.cleanproject.domain.transaction;
 
 import de.dhbw.cleanproject.domain.category.Category;
-import de.dhbw.cleanproject.domain.user.User;
+import de.dhbw.cleanproject.domain.user.AppUser;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -35,7 +35,7 @@ public class Transaction {
     private String description;
 
     @ManyToOne
-    private User user;
+    private AppUser user;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;

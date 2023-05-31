@@ -3,7 +3,7 @@ import de.dhbw.cleanproject.domain.category.Budget;
 import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.transaction.Transaction;
 import de.dhbw.cleanproject.domain.transaction.TransactionType;
-import de.dhbw.cleanproject.domain.user.User;
+import de.dhbw.cleanproject.domain.user.AppUser;
 import de.dhbw.cleanproject.domain.user.report.BiggestCategory;
 import de.dhbw.cleanproject.domain.user.report.Report;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
     @InjectMocks
-    private User user;
+    private AppUser user;
 
     private static final Logger LOGGER = Logger.getLogger(UserTest.class.getName());
 

@@ -2,14 +2,10 @@ package de.dhbw.cleanproject.application.user;
 
 import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.transaction.Transaction;
-import de.dhbw.cleanproject.domain.transaction.TransactionApplication;
 import de.dhbw.cleanproject.domain.transaction.TransactionRepository;
-import de.dhbw.cleanproject.domain.transaction.TransactionType;
-import de.dhbw.cleanproject.domain.user.User;
+import de.dhbw.cleanproject.domain.user.AppUser;
 import de.dhbw.cleanproject.domain.user.UserApplication;
 import de.dhbw.cleanproject.domain.user.UserRepository;
-import de.dhbw.cleanproject.domain.user.report.BiggestCategory;
-import de.dhbw.cleanproject.domain.user.report.Report;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,11 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -37,7 +29,7 @@ public class UserApplicationService implements UserApplication {
 
 
 
-    public User findByUsername(String username) {
+    public AppUser findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -46,7 +38,7 @@ public class UserApplicationService implements UserApplication {
     }
 
     @Override
-    public void createUser(User registerUser) {
+    public void createUser(AppUser registerUser) {
         if(userRepository.existsByUsername(registerUser.getUsername())){
             throw new RuntimeException("Username already exists!");
         }
@@ -58,14 +50,14 @@ public class UserApplicationService implements UserApplication {
     }
 
     @Override
-    public User getUser() {
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public AppUser getUser() {
+        AppUser principal = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getUsername());
     }
 
     @Override
     public void addCategory(Category category) {
-        User user = getUser();
+        AppUser user = getUser();
         user.addCategory(category);
         userRepository.save(user);
     }
@@ -73,21 +65,21 @@ public class UserApplicationService implements UserApplication {
     @Override
     public void generateReport(YearMonth yearMonth) {
         List<Transaction> allTransactions = transactionRepository.getAllTransactions(yearMonth);
-        User user = getUser();
+        AppUser user = getUser();
         user.generateReport(allTransactions, yearMonth);
 
         save(user);
     }
 
     @Override
-    public void save(User user) {
+    public void save(AppUser user) {
         userRepository.save(user);
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+        AppUser user = findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }

@@ -1,15 +1,10 @@
 package de.dhbw.plugins.persistence.hibernate.category;
 
-import de.dhbw.cleanproject.domain.category.Budget;
 import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.category.CategoryRepository;
-import de.dhbw.cleanproject.domain.user.User;
-import de.dhbw.plugins.persistence.hibernate.transaction.SpringDataTransactionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.UUID;
 
 @Repository

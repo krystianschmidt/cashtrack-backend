@@ -4,7 +4,7 @@ import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.category.CategoryRepository;
 import de.dhbw.cleanproject.domain.transaction.Transaction;
 import de.dhbw.cleanproject.domain.transaction.TransactionType;
-import de.dhbw.cleanproject.domain.user.User;
+import de.dhbw.cleanproject.domain.user.AppUser;
 import de.dhbw.cleanproject.domain.user.UserApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class CategoryApplicationServiceTest {
     @InjectMocks
     private CategoryApplicationService categoryApplicationService;
 
-    private User user;
+    private AppUser user;
     private Authentication auth;
 
     @BeforeEach
@@ -65,7 +65,7 @@ public class CategoryApplicationServiceTest {
 
         categoryApplicationService.removeCategory(category.getId());
 
-        verify(userApplication).save(any(User.class));
+        verify(userApplication).save(any(AppUser.class));
     }
 
     @Test
@@ -112,8 +112,8 @@ public class CategoryApplicationServiceTest {
         return category;
     }
 
-    private User createTestUser() {
-        User user = new User();
+    private AppUser createTestUser() {
+        AppUser user = new AppUser();
         user.setId(UUID.randomUUID());
         return user;
     }

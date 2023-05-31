@@ -1,10 +1,10 @@
 package de.dhbw.plugins.persistence.hibernate.user;
 
-import de.dhbw.cleanproject.domain.user.User;
+import de.dhbw.cleanproject.domain.user.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SpringDataUserRepository extends JpaRepository<User, String> {
+public interface SpringDataUserRepository extends JpaRepository<AppUser, String> {
 
-    User findByUsername(String username);
+    AppUser findByUsername(String username);
     boolean existsByUsername(String username);
 }

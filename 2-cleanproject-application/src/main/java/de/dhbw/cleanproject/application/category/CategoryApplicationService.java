@@ -4,12 +4,10 @@ import de.dhbw.cleanproject.domain.category.Budget;
 import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.category.CategoryApplication;
 import de.dhbw.cleanproject.domain.category.CategoryRepository;
-import de.dhbw.cleanproject.domain.transaction.Transaction;
 import de.dhbw.cleanproject.domain.transaction.TransactionType;
-import de.dhbw.cleanproject.domain.user.User;
+import de.dhbw.cleanproject.domain.user.AppUser;
 import de.dhbw.cleanproject.domain.user.UserApplication;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,7 +30,7 @@ public class CategoryApplicationService implements CategoryApplication {
 
     @Override
     public void removeCategory(UUID categoryId) {
-        User user = userApplication.getUser();
+        AppUser user = userApplication.getUser();
         Optional<Category> category = user.getCategories().stream()
                 .filter(c -> c.getId().equals(categoryId))
                 .findFirst();
@@ -56,7 +54,7 @@ public class CategoryApplicationService implements CategoryApplication {
 
     @Override
     public void addBudget(UUID categoryId, Budget budget) {
-        User user = userApplication.getUser();
+        AppUser user = userApplication.getUser();
         Optional<Category> optionalCategory = user.getCategories().stream().filter(c -> c.getId().equals(categoryId)).findFirst();
         if(optionalCategory.isEmpty())
             throw new RuntimeException("Category does not belong to user");
@@ -72,7 +70,7 @@ public class CategoryApplicationService implements CategoryApplication {
 
     @Override
     public void removeBudget(UUID categoryId) {
-        User user = userApplication.getUser();
+        AppUser user = userApplication.getUser();
         Optional<Category> optionalCategory = user.getCategories().stream().filter(c -> c.getId().equals(categoryId)).findFirst();
         if(optionalCategory.isEmpty())
             throw new RuntimeException("Category does not belong to user");
