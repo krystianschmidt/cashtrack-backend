@@ -90,20 +90,27 @@ public class CategoryApplicationService implements CategoryApplication {
         if(category.getTransactions().isEmpty() || category.getBudget() == null)
             return;
 
-        Double totalExpense = category.getTransactions().stream()
-                .filter(t -> t.getType() == TransactionType.EXPENSE)
-                .mapToDouble(transaction -> Math.abs(transaction.getAmount()))
-                .sum();
+        Double totalExpense = getTotalExpense(category);
 
-        // Assume the amount field in Budget is the maximum budget, and usedAmount is the amount currently used.
-        Budget updatedBudget = new Budget(
+        Budget updatedBudget = getUpdatedBudget(category, totalExpense);
+
+        category.setBudget(updatedBudget);
+        categoryRepository.saveCategory(category);
+    }
+
+    private static Budget getUpdatedBudget(Category category, Double totalExpense) {
+        return new Budget(
                 category.getBudget().getAmount(),
                 totalExpense,
                 totalExpense > category.getBudget().getAmount()
         );
+    }
 
-        category.setBudget(updatedBudget);
-        categoryRepository.saveCategory(category);
+    private static double getTotalExpense(Category category) {
+        return category.getTransactions().stream()
+                .filter(t -> t.getType() == TransactionType.EXPENSE)
+                .mapToDouble(transaction -> Math.abs(transaction.getAmount()))
+                .sum();
     }
 
 

@@ -27,14 +27,19 @@ public class TransactionApplicationService implements TransactionApplication {
     public void addTransaction(Transaction transaction) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Category category = categoryApplication.getCategory(transaction.getCategory().getId());
-        transaction.setUser(user);
-        transaction.setCategory(category);
-        transaction.getCategory().addTransaction(transaction);
+
+        setCategoryAndUser(transaction, user, category);
 
         Transaction savedTransaction = transactionRepository.addTransaction(transaction);
         categoryApplication.refreshBudget(savedTransaction.getCategory());
 
         userApplication.generateReport(YearMonth.from(savedTransaction.getTimestamp()));
+    }
+
+    private static void setCategoryAndUser(Transaction transaction, User user, Category category) {
+        transaction.setUser(user);
+        transaction.setCategory(category);
+        transaction.getCategory().addTransaction(transaction);
     }
 
     @Override
