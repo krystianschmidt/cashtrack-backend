@@ -1,7 +1,7 @@
 import de.dhbw.cleanproject.application.user.UserApplicationService;
 import de.dhbw.cleanproject.domain.category.Category;
 import de.dhbw.cleanproject.domain.transaction.TransactionRepository;
-import de.dhbw.cleanproject.domain.user.AppUser;
+import de.dhbw.cleanproject.domain.user.User;
 import de.dhbw.cleanproject.domain.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class UserApplicationServiceTest {
     @InjectMocks
     private UserApplicationService userApplicationService;
 
-    private AppUser testUser;
+    private User testUser;
 
     @BeforeEach
     public void setup() {
@@ -52,7 +52,7 @@ public class UserApplicationServiceTest {
 
     @Test
     public void createUserTest() {
-        AppUser newUser = new AppUser();
+        User newUser = new User();
         newUser.setUsername("NewUser");
         newUser.setPassword("NewPassword");
 
@@ -68,7 +68,7 @@ public class UserApplicationServiceTest {
     public void getUserTest() {
         when(userRepository.findByUsername(testUser.getUsername())).thenReturn(testUser);
 
-        AppUser foundUser = userApplicationService.getUser();
+        User foundUser = userApplicationService.getUser();
 
         assert foundUser.getUsername().equals(testUser.getUsername());
     }
@@ -95,14 +95,14 @@ public class UserApplicationServiceTest {
         verify(userRepository, times(1)).save(testUser);
     }
 
-    private AppUser createTestUser() {
-        AppUser user = new AppUser();
+    private User createTestUser() {
+        User user = new User();
         user.setUsername("TestUser");
         user.setPassword("TestPassword");
         return user;
     }
 
-    private void setAuthenticationContext(AppUser user) {
+    private void setAuthenticationContext(User user) {
         Authentication auth = new TestingAuthenticationToken(user, null);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(auth);

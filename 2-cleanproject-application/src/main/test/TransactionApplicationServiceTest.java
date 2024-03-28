@@ -5,7 +5,7 @@ import de.dhbw.cleanproject.domain.category.CategoryApplication;
 import de.dhbw.cleanproject.domain.transaction.Transaction;
 import de.dhbw.cleanproject.domain.transaction.TransactionRepository;
 import de.dhbw.cleanproject.domain.transaction.TransactionType;
-import de.dhbw.cleanproject.domain.user.AppUser;
+import de.dhbw.cleanproject.domain.user.User;
 import de.dhbw.cleanproject.domain.user.UserApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ public class TransactionApplicationServiceTest {
     @InjectMocks
     private TransactionApplicationService transactionApplicationService;
 
-    private AppUser user;
+    private User user;
     private Authentication auth;
 
     @BeforeEach
@@ -126,8 +126,8 @@ public class TransactionApplicationServiceTest {
         return category;
     }
 
-    private AppUser createTestUser() {
-        AppUser user = new AppUser();
+    private User createTestUser() {
+        User user = new User();
         user.setId(UUID.randomUUID());
         return user;
     }

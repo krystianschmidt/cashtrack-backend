@@ -2,12 +2,14 @@ package de.dhbw.plugins.persistence.hibernate.transaction;
 
 import de.dhbw.cleanproject.domain.transaction.Transaction;
 import de.dhbw.cleanproject.domain.transaction.TransactionRepository;
-import de.dhbw.cleanproject.domain.user.AppUser;
+import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +38,7 @@ public class TransactionRepositoryBridge implements TransactionRepository {
 
     @Override
     public List<Transaction> getAllTransactions(YearMonth yearMonth) {
-        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         LocalDateTime start = yearMonth.atDay(1).atStartOfDay();
         LocalDateTime end = yearMonth.atEndOfMonth().atTime(23, 59, 59);
         return repository.findByUserAndTimestampBetween(user, start, end);

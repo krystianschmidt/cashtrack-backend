@@ -2,9 +2,10 @@ package de.dhbw.cleanproject.adapter.user;
 
 import de.dhbw.cleanproject.adapter.category.CategoryResource;
 import de.dhbw.cleanproject.adapter.category.CategoryToCategoryResourceMapper;
+import de.dhbw.cleanproject.adapter.user.UserResource;
 import de.dhbw.cleanproject.adapter.user.report.ReportResource;
 import de.dhbw.cleanproject.adapter.user.report.ReportToReportResourceMapper;
-import de.dhbw.cleanproject.domain.user.AppUser;
+import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,17 +15,17 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class UserToUserResourceMapper implements Function<AppUser, UserResource> {
+public class UserToUserResourceMapper implements Function<User, UserResource> {
 
     private final CategoryToCategoryResourceMapper categoryToCategoryResourceMapper;
     private final ReportToReportResourceMapper reportToReportResourceMapper;
 
     @Override
-    public UserResource apply(final AppUser user) {
+    public UserResource apply(final User user) {
         return map(user);
     }
 
-    private UserResource map(final AppUser user) {
+    private UserResource map(final User user) {
         List<CategoryResource> categoryResourceList = user.getCategories().stream()
                 .map(categoryToCategoryResourceMapper)
                 .collect(Collectors.toList());
