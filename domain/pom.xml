@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>2-cleanproject-application</artifactId>
+    <artifactId>domain</artifactId>
 
     <build>
         <plugins>
@@ -30,16 +30,16 @@
 
         <dependency>
             <groupId>de.dhbw</groupId>
-            <artifactId>3-cleanproject-domain</artifactId>
+            <artifactId>abstractioncode</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
     </dependencies>
-
 
 </project>

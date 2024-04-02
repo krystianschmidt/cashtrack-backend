@@ -18,11 +18,11 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>4-cleanproject-abstractioncode</module>
-        <module>3-cleanproject-domain</module>
-        <module>2-cleanproject-application</module>
-        <module>1-cleanproject-adapters</module>
-        <module>0-cleanproject-plugins</module>
+        <module>abstractioncode</module>
+        <module>domain</module>
+        <module>application</module>
+        <module>adapters</module>
+        <module>plugins</module>
     </modules>
 
     <build>
