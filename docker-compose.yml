@@ -1,10 +1,10 @@
 version: '3.8'
 services:
   backend:
-    image: cashtrack-backend:latest
+    image: cashtrack-backend:1
 
   frontend:
-    image: cashtrack-frontend:latest
+    image: cashtrack-frontend:1
     ports:
       - "8080:6666"
     depends_on:
