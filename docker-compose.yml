@@ -1,10 +1,18 @@
 version: '3.8'
 services:
   backend:
-    image: cashtrack-backend:1
+    image: cashtrack-backend:latest
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: cashtrack-backend
 
   frontend:
-    image: cashtrack-frontend:1
+    image: cashtrack-frontend:latest
+    build:
+        context: ../cashtrack-frontend
+        dockerfile: Dockerfile
+    container_name: cashtrack-frontend
     ports:
       - "8080:6666"
     depends_on:
