@@ -1,6 +1,6 @@
-import de.dhbw.cleanproject.domain.category.Category;
-import de.dhbw.cleanproject.domain.transaction.Transaction;
-import de.dhbw.cleanproject.domain.transaction.TransactionType;
+import de.krystianschmidt.cashtrack.domain.category.Category;
+import de.krystianschmidt.cashtrack.domain.transaction.Transaction;
+import de.krystianschmidt.cashtrack.domain.transaction.TransactionType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

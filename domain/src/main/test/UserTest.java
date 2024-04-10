@@ -1,11 +1,11 @@
 
-import de.dhbw.cleanproject.domain.category.Budget;
-import de.dhbw.cleanproject.domain.category.Category;
-import de.dhbw.cleanproject.domain.transaction.Transaction;
-import de.dhbw.cleanproject.domain.transaction.TransactionType;
-import de.dhbw.cleanproject.domain.user.User;
-import de.dhbw.cleanproject.domain.user.report.BiggestCategory;
-import de.dhbw.cleanproject.domain.user.report.Report;
+import de.krystianschmidt.cashtrack.domain.category.Budget;
+import de.krystianschmidt.cashtrack.domain.category.Category;
+import de.krystianschmidt.cashtrack.domain.transaction.Transaction;
+import de.krystianschmidt.cashtrack.domain.transaction.TransactionType;
+import de.krystianschmidt.cashtrack.domain.user.User;
+import de.krystianschmidt.cashtrack.domain.user.report.BiggestCategory;
+import de.krystianschmidt.cashtrack.domain.user.report.Report;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +15,7 @@ import java.time.YearMonth;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static de.dhbw.cleanproject.domain.user.report.ReportGenerator.findCategoriesOverBudget;
+import static de.krystianschmidt.cashtrack.domain.user.report.ReportGenerator.findCategoriesOverBudget;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)

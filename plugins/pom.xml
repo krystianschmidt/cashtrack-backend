@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>cleanproject</artifactId>
-        <groupId>de.dhbw</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>cashtrack</artifactId>
+        <groupId>de.krystianschmidt</groupId>
+        <version>1.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -148,9 +148,9 @@
         </dependency>
 
         <dependency>
-            <groupId>de.dhbw</groupId>
+            <groupId>de.krystianschmidt</groupId>
             <artifactId>adapters</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -164,6 +164,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.krystianschmidt</groupId>
+            <artifactId>domain</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

@@ -1,8 +1,8 @@
-import de.dhbw.cleanproject.application.user.UserApplicationService;
-import de.dhbw.cleanproject.domain.category.Category;
-import de.dhbw.cleanproject.domain.transaction.TransactionRepository;
-import de.dhbw.cleanproject.domain.user.User;
-import de.dhbw.cleanproject.domain.user.UserRepository;
+import de.krystianschmidt.cashtrack.application.user.UserApplicationService;
+import de.krystianschmidt.cashtrack.domain.category.Category;
+import de.krystianschmidt.cashtrack.domain.transaction.TransactionRepository;
+import de.krystianschmidt.cashtrack.domain.user.User;
+import de.krystianschmidt.cashtrack.domain.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
